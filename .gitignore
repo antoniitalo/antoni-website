@@ -1,0 +1,18 @@
+# macOS
+.DS_Store
+
+# Claude Code session state
+.claude/
+
+# Local-only design experiments (three earlier directions, kept for reference)
+variants/
+
+# Local-only archive of the dormant Jekyll source files
+_archive/
+
+# Source images that aren't published (used to produce assets/img/prof_pic.jpg)
+profile.png
+4024d73a-*.jpeg
+
+# Alternate / backup profile photos kept locally — only prof_pic.jpg ships
+assets/img/prof_pic_*.jpg
