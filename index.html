@@ -163,6 +163,19 @@ tbody td:nth-child(4){color:var(--ink-soft);font-size:.86rem}
 
 .teaching-note{margin-top:.9rem;font-size:.86rem;color:var(--ink-soft)}
 
+/* CV section — compact two-column lists */
+.cv-download{margin:.4rem 0 1.6rem;font-family:var(--sans);font-size:.92rem}
+.cv-download a{color:#000;border-bottom:1px solid var(--rule);font-weight:600;padding:.05rem 0}
+.cv-download a:hover{color:var(--accent);border-bottom-color:var(--accent);background:transparent}
+.cv-h{font-family:var(--sans);font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:#000;font-weight:600;margin:1.6rem 0 .55rem;padding-bottom:.4rem;border-bottom:1px dotted var(--rule-soft)}
+.cv-list{padding:0;margin:0;list-style:none}
+.cv-list li{display:grid;grid-template-columns:110px 1fr;gap:1.2rem;padding:.55rem 0;border-bottom:1px solid var(--rule-soft);font-size:.95rem;line-height:1.5;align-items:baseline}
+.cv-list li:last-child{border-bottom:0}
+.cv-list .when{font-family:var(--sans);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute);font-weight:600;font-variant-numeric:tabular-nums lining-nums;padding-top:.1rem}
+.cv-list .what{color:#222}
+.cv-list strong{color:#000;font-weight:600}
+@media (max-width:560px){.cv-list li{grid-template-columns:1fr;gap:.1rem}.cv-list .when{font-size:.68rem}}
+
 /* Media list */
 .media-list{padding:0;margin:0;list-style:none}
 .media-list li{padding:.5rem 0;border-bottom:1px solid var(--rule-soft);font-size:.92rem;line-height:1.5}
@@ -207,6 +220,7 @@ footer .colophon{grid-column:1/-1;margin-top:1rem;padding-top:1rem;border-top:1p
     <ul>
       <li><a href="#about">About</a></li>
       <li><a href="#research">Research</a></li>
+      <li><a href="#cv">CV</a></li>
       <li><a href="#writing">Writing</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -241,7 +255,8 @@ footer .colophon{grid-column:1/-1;margin-top:1rem;padding-top:1rem;border-top:1p
   <aside class="photo">
     <img src="assets/img/prof_pic.jpg" alt="Antoni-Italo de Moragas">
     <div class="card">
-      <p class="label">Office</p>
+      <p class="label">Contact information</p>
+      <p><a href="mailto:antoni.demoragas@cunef.edu">antoni.demoragas@cunef.edu</a></p>
       <p><strong>CUNEF Universidad</strong></p>
       <p>Despacho A4-22</p>
       <p>C/ Almansa 101</p>
@@ -418,6 +433,40 @@ footer .colophon{grid-column:1/-1;margin-top:1rem;padding-top:1rem;border-top:1p
   </li>
 <!-- BUILD:END wip -->
 </ol>
+
+<h2 id="cv">CV <span class="num">summary</span></h2>
+
+<p class="cv-download"><a href="assets/pdf/cv.pdf">Download full CV (PDF)</a></p>
+
+<p class="cv-h">Education</p>
+<ul class="cv-list">
+  <li><span class="when">2018</span><span class="what"><strong>PhD in Economics</strong>, European University Institute, Florence (advisors: Andrea Mattozzi and David K. Levine)</span></li>
+  <li><span class="when">2013</span><span class="what">MRes in Economics, European University Institute, Florence</span></li>
+  <li><span class="when">2012</span><span class="what">MSc in Economics, Universitat de Barcelona</span></li>
+  <li><span class="when">2010</span><span class="what">BSc in Mathematics, Universitat Politècnica de Catalunya</span></li>
+</ul>
+
+<p class="cv-h">Positions</p>
+<ul class="cv-list">
+  <li><span class="when">2025–</span><span class="what"><strong>Associate Professor</strong> in Economics, CUNEF Universidad</span></li>
+  <li><span class="when">2023–25</span><span class="what">Tenured Assistant Professor in Economics, CUNEF Universidad</span></li>
+  <li><span class="when">2017–23</span><span class="what">Assistant Professor in Economics, CUNEF Universidad</span></li>
+</ul>
+
+<p class="cv-h">Selected grants &amp; awards</p>
+<ul class="cv-list">
+  <li><span class="when">2026–31</span><span class="what"><strong>Ramón y Cajal Fellowship</strong>, Spanish Ministry of Science and Innovation — PI</span></li>
+  <li><span class="when">2025–28</span><span class="what">Fundación Ramón Areces Fellowship — PI</span></li>
+  <li><span class="when">2024–26</span><span class="what">la Caixa Social Research Call (EDUCARE) — PI</span></li>
+  <li><span class="when">2024</span><span class="what">Sexenio Favorable de Investigación 2018–23, ANECA</span></li>
+</ul>
+
+<p class="cv-h">Service</p>
+<ul class="cv-list">
+  <li><span class="when">2025–</span><span class="what">Member, Government of Catalonia's Council for Productivity and Economic Leadership</span></li>
+  <li><span class="when">2018–</span><span class="what">Co-organiser, Madrid Political Economy Workshop (MAPE)</span></li>
+  <li><span class="when">2020–21</span><span class="what">Co-organiser, Online Political Economy Seminar Series (OPESS)</span></li>
+</ul>
 
 <h2 id="writing">Earlier writing <span class="num">2014–2016</span></h2>
 <ul class="media-list">
