@@ -109,14 +109,15 @@ main{max-width:var(--max);margin:0 auto;padding:3.4rem 1.2rem 4rem}
 
 /* Papers — typographic hierarchy, not buttons */
 .papers{margin:.2rem 0 0;padding:0;list-style:none}
-.paper{padding:1.15rem 0;border-bottom:1px solid var(--rule-soft);position:relative}
-.paper:last-of-type{border-bottom:0}
-.paper .t{font-family:var(--serif);font-size:1.12rem;line-height:1.35;font-weight:600;color:#000;letter-spacing:-.005em;margin-bottom:.2rem}
-.paper .a{font-size:.88rem;color:var(--ink-soft);margin:.05rem 0 .2rem;line-height:1.5}
+.paper{padding:1.05rem 1rem 1.05rem 1.1rem;margin-bottom:.55rem;border-left:2px solid var(--accent);background:linear-gradient(to right,var(--accent-tint),transparent 45%);position:relative}
+.paper:last-of-type{margin-bottom:0}
+.paper .t{font-family:var(--serif);font-size:1.14rem;line-height:1.35;font-weight:600;color:#000;letter-spacing:-.005em;margin-bottom:.2rem}
+.paper .a{font-size:.88rem;color:var(--ink-soft);margin:.05rem 0 .3rem;line-height:1.5}
 .paper .a .me{color:#000;font-weight:500;border-bottom:1px solid var(--rule-soft)}
-.paper .j{font-family:var(--serif);font-style:italic;font-size:.95rem;color:#222}
-.paper .j .yr{font-style:normal;color:var(--ink-mute);margin-left:.15rem}
-.paper.published .j{color:#000}
+.paper .j{font-family:var(--serif);font-style:italic;font-size:1rem;color:#222}
+.paper .j .yr{font-style:normal;color:var(--ink-mute);margin-left:.15rem;font-size:.92rem}
+.paper.published .j{color:#000;font-size:1.08rem;font-weight:600}
+.paper.published .j .yr{font-weight:400;font-size:.92rem}
 .paper.wp .j{font-style:normal;font-family:var(--sans);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-mute);font-weight:600}
 .paper .links{margin-top:.45rem;font-family:var(--sans);font-size:.78rem;letter-spacing:.02em;color:var(--ink-soft)}
 .paper .links a{color:#000;border-bottom:1px solid var(--rule-soft);padding:0;margin-right:.9rem;font-weight:500}
@@ -135,9 +136,8 @@ main{max-width:var(--max);margin:0 auto;padding:3.4rem 1.2rem 4rem}
 .paper details.abs .body.press a{color:#000;border-bottom:1px solid var(--rule-soft);font-weight:500}
 .paper details.abs .body.press a:hover{color:var(--accent);border-bottom-color:var(--accent);background:transparent}
 
-/* Featured (top published) — slightly larger title, accent indent */
-.paper.featured{padding-left:1.1rem;border-left:2px solid var(--accent);background:linear-gradient(to right,var(--accent-tint),transparent 35%)}
-.paper.featured .t{font-size:1.22rem}
+/* Featured (top published) — bigger title only; the card style is now shared */
+.paper.featured .t{font-size:1.26rem}
 
 /* Section subhead between published and working */
 .subhead{font-family:var(--sans);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-mute);font-weight:600;margin:1.8rem 0 .2rem;padding-bottom:.4rem;border-bottom:1px dotted var(--rule-soft)}
@@ -303,9 +303,9 @@ footer .colophon{grid-column:1/-1;margin-top:1rem;padding-top:1rem;border-top:1p
     <div class="links">
       <a href="https://ejpr.onlinelibrary.wiley.com/doi/10.1111/1475-6765.12592">Journal</a>
       <a href="https://drive.google.com/file/d/1xCccJrosP0iEHGlYv_Z7zEe_Y8EZsEZM/view?usp=drive_link">(preprint)</a>
-      <a href="https://naciodigital.cat/sopa-dades/histories-contra-experts-qui-guanya_1949738_102.html" target="_blank" rel="noopener">Media</a>
     </div>
     <details class="abs"><summary>Abstract</summary><div class="body">Are personal stories more effective in shaping opinion than experts' endorsements? This study investigates the persuasiveness of personal stories and expert endorsements in shaping public opinion on education spending and pollution reduction policies. Using a survey experiment in Spain, we found that personal stories consistently increased support for both policies, with a particularly strong effect on citizens with populist attitudes or voters of populist parties. These findings contribute to a better understanding of the success of populist parties and the influence of personal stories on public opinion.</div></details>
+    <details class="abs"><summary>Press</summary><div class="body press"><a href="https://naciodigital.cat/sopa-dades/histories-contra-experts-qui-guanya_1949738_102.html" target="_blank" rel="noopener">Nació Digital</a></div></details>
   </li>
 
   <li class="paper published">
@@ -315,10 +315,10 @@ footer .colophon{grid-column:1/-1;margin-top:1rem;padding-top:1rem;border-top:1p
     <div class="links">
       <a href="https://www.sciencedirect.com/science/article/pii/S0014292122001702">Journal</a>
       <a href="https://drive.google.com/file/d/11DqmBuH2S5O-fwrNZ1hZMgOkp2z-zafO/view?usp=sharing">(preprint)</a>
-      <a href="https://nadaesgratis.es/santiago-sanchez-pages/benidorm-fest-expertos-vs-demos" target="_blank" rel="noopener">Media</a>
       <a href="https://www.youtube.com/watch?v=2fJGJdjWxGE" target="_blank" rel="noopener">Song</a>
     </div>
     <details class="abs"><summary>Abstract</summary><div class="body">I study whether a decision maker would make better decisions if his private interests were disclosed. I focus on a delegation relationship in which a decision maker attempts to build a good reputation. I compare the following two scenarios: a non-disclosure case in which the interest of the decision maker is private information and a disclosure case in which his interest is publicly known. I show that the disclosure of the private interests of the decision maker can only improve the decision made when reputation concerns are intermediate, and decision makers are sufficiently informed and public-spirited. Otherwise, disclosure can be detrimental because it induces decision makers to make decisions against their private interests too often. My framework provides a novel cautionary tale regarding the use of disclosure laws to address conflicts of interest.</div></details>
+    <details class="abs"><summary>Press</summary><div class="body press"><a href="https://nadaesgratis.es/santiago-sanchez-pages/benidorm-fest-expertos-vs-demos" target="_blank" rel="noopener">Nada es Gratis</a></div></details>
   </li>
 
   <li class="paper published">
@@ -329,11 +329,10 @@ footer .colophon{grid-column:1/-1;margin-top:1rem;padding-top:1rem;border-top:1p
       <a href="https://www.sciencedirect.com/science/article/abs/pii/S0047272721001134">Journal</a>
       <a href="https://drive.google.com/file/d/12xDs-lKivxMPqQWa8U00iBsntK8hLCiw/view?usp=sharing">(preprint)</a>
       <a href="https://drive.google.com/file/d/1JnSaUaqPF2RuVYExrRKNYLOiPGuvyqen/view?usp=sharing">Online appendix</a>
-      <a href="https://www.ivoox.com/en/por-mili-no-es-tan-mala-audios-mp3_rf_161967022_1.html" target="_blank" rel="noopener">Media (Pausa)</a>
-      <a href="https://www.5centims.cat/tenir-amics-de-la-resta-despanya-et-fa-sentir-te-espanyol/" target="_blank" rel="noopener">Media (5cèntims)</a>
       <a href="https://www.google.com/search?q=leonard+cohen+partisan" target="_blank" rel="noopener">Song</a>
     </div>
     <details class="abs"><summary>Abstract</summary><div class="body">We study the long-term effects of intergroup contact on nation building by exploiting a national lottery that randomly allocated conscripts to different military areas across Spain. For men born in regions that feature a weak Spanish identity, we find that being assigned to military service in a different region substantially increases self-identification as Spanish, increases the likelihood of voting in national elections and reduces the probability of voting for a regionalist party. Moreover, in support of intergroup contact as the main mechanism behind these results, we find that movers are more likely than nonmovers to have friends from other regions.</div></details>
+    <details class="abs"><summary>Press</summary><div class="body press"><a href="https://www.ivoox.com/en/por-mili-no-es-tan-mala-audios-mp3_rf_161967022_1.html" target="_blank" rel="noopener">Pausa (El Confidencial)</a>, <a href="https://www.5centims.cat/tenir-amics-de-la-resta-despanya-et-fa-sentir-te-espanyol/" target="_blank" rel="noopener">5cèntims</a></div></details>
   </li>
 
   <li class="paper published">
