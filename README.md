@@ -27,6 +27,8 @@ For routine updates you can also just ask Claude in this folder ("new paper out:
 
 ```
 index.html                       single-file site (CSS inline)
+home/index.html                  redirect stub: /home → / (legacy link)
+404.html                         catch-all: any unknown path → /
 build.py                         regenerates news + publications blocks
 CNAME                            www.antonidemoragas.eu
 .nojekyll                        tells GitHub Pages to skip Jekyll
