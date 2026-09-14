@@ -4,24 +4,26 @@ Personal academic website of Antoni-Italo de Moragas — Associate Professor of 
 
 ## Stack
 
-Single-page static HTML, no build pipeline. Hosted on GitHub Pages with a custom domain.
+Single-page static HTML, no build pipeline, no CI, no Jekyll, no Ruby. Hosted on GitHub Pages with a custom domain.
 
-The page is regenerated from two sources of truth:
-
-- `_bibliography/papers.bib` — every publication, working paper, and work-in-progress entry, in BibTeX, with a `category` field.
-- `_news/*.md` — short news entries with date frontmatter (Jekyll-style for compatibility).
-
-`build.py` (Python 3, stdlib only) reads both and rewrites the regions of `index.html` between `<!-- BUILD:START name -->` … `<!-- BUILD:END name -->` markers. Everything else in `index.html` is hand-written: bio, hero, "Currently" strip, teaching table, press list, footer.
+`index.html` is the site: one hand-written file with the CSS inline — bio, hero, news, publications, teaching, CV summary, press and footer all live in it.
 
 ## Updating
 
-1. Edit `_bibliography/papers.bib` (add a paper, fix a coauthor) or drop a markdown file into `_news/`.
-2. `python build.py`
-3. `git add -A && git commit -m "…" && git push`
+1. Edit `index.html` directly.
+2. `git add -A && git commit -m "…" && git push`
 
-Live in ~30 seconds. No CI, no Jekyll, no Ruby.
+Live in ~30 seconds.
 
-For routine updates you can also just ask Claude in this folder ("new paper out: …", "add a news item") and it will do steps 1–3 for you.
+For routine updates you can also just ask Claude in this folder ("new paper out: …", "add a news item") and it will do both steps for you.
+
+### Why there is no build script
+
+The site originally shipped with `build.py`, which regenerated the news and publications blocks from `_bibliography/papers.bib` and `_news/*.md`. It was written in May 2026 and never updated, while `index.html` was hand-edited some thirty times after that — abstracts, coauthor homepage links, the 🎵 song links, analytics, new news entries.
+
+By September 2026 running it would have silently deleted all of that, so the script was removed. `_bibliography/papers.bib` and `_news/*.md` are kept only as an archive of the original content; **nothing reads them** and they no longer match what the page shows.
+
+The `<!-- BUILD:START … -->` / `<!-- BUILD:END … -->` comments left in `index.html` are inert section markers. Edit inside them freely.
 
 ## Layout
 
@@ -29,23 +31,10 @@ For routine updates you can also just ask Claude in this folder ("new paper out:
 index.html                       single-file site (CSS inline)
 home/index.html                  redirect stub: /home → / (legacy link)
 404.html                         catch-all: any unknown path → /
-build.py                         regenerates news + publications blocks
 CNAME                            www.antonidemoragas.eu
 .nojekyll                        tells GitHub Pages to skip Jekyll
-_bibliography/papers.bib         publications (single source of truth)
-_news/*.md                       news entries (frontmatter + body)
+_bibliography/papers.bib         archive only — not read by anything
+_news/*.md                       archive only — not read by anything
 assets/img/prof_pic.jpg          profile photo
-assets/pdf/cv.pdf                CV (replace this file when updated)
+assets/pdf/cv.pdf                CV — copied from the `cv` repo after rebuilding it there
 ```
-
-## BibTeX conventions
-
-Each entry needs a `category` field:
-
-- `category={publications}` — peer-reviewed articles and book chapters; rendered under "Published". The first one (most recent) is auto-promoted to "featured" on the homepage.
-- `category={working_papers}` — rendered under "Working papers".
-- `category={work_in_progress}` — rendered under "Work in progress".
-
-Author names follow al-folio convention: brace `{De Moragas}` to keep it as a single capitalised family name for the BibTeX. The build script lowercases it to `de Moragas` for display and wraps it in `<span class="me">` so the user's name is highlighted.
-
-Recognised link fields: `html` (rendered as "Journal"), `pdf`, `supp` ("Online appendix"), `blog` ("Discussion"), `slides`, `code`, `poster`, `website`.
