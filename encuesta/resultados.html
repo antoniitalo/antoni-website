@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Resultados en la sala</title>
+<style>
+  :root { --dark:#14213D; --light:#F6F3EC; --card:#FFFDF8; --line:#DDD5C4; --accent:#B04A17; --blue:#2F6690; --muted:#5B6577; }
+  * { box-sizing:border-box; }
+  html, body { height:100%; }
+  body { margin:0; background:var(--light); color:var(--dark); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+  main { height:100%; max-width:1400px; margin:0 auto; padding:4vh 4vw 3vh; display:flex; flex-direction:column; gap:2.5vh; }
+  .eyebrow { font-size:clamp(14px,1.6vh,22px); letter-spacing:3px; text-transform:uppercase; color:var(--accent); font-weight:700; margin:0; }
+  h1 { font-family:Georgia,"Times New Roman",serif; font-size:clamp(28px,5.5vh,64px); line-height:1.1; margin:0; }
+  .chart { flex:1; display:flex; gap:4vw; min-height:0; }
+  .axis { display:flex; flex-direction:column; justify-content:space-between; font-size:clamp(14px,1.8vh,22px); color:var(--muted); padding-bottom:9vh; text-align:right; }
+  .col { flex:1; display:flex; flex-direction:column; align-items:center; min-height:0; }
+  .plot { flex:1; width:100%; position:relative; border-bottom:3px solid var(--dark); min-height:0; }
+  .grid { position:absolute; left:0; right:0; border-top:1px dashed var(--line); }
+  .bar { position:absolute; left:20%; width:60%; bottom:0; height:0; border-radius:8px 8px 0 0; transition:height .8s ease; }
+  .val { position:absolute; left:0; right:0; text-align:center; font-family:Georgia,serif; font-weight:700; font-size:clamp(32px,7vh,88px); transition:bottom .8s ease; }
+  .lab { margin-top:1.5vh; text-align:center; font-size:clamp(18px,3vh,36px); font-weight:700; }
+  .n { text-align:center; font-size:clamp(14px,2vh,24px); color:var(--muted); }
+  .par .bar { background:var(--blue); } .par .lab { color:var(--blue); }
+  .impar .bar { background:var(--accent); } .impar .lab { color:var(--accent); }
+  .foot { display:flex; justify-content:space-between; align-items:baseline; font-size:clamp(16px,2.4vh,30px); }
+  .foot .muted { color:var(--muted); font-size:clamp(12px,1.6vh,20px); }
+</style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">Qué ha pasado en la sala</p>
+  <h1>¿Ha cambiado la noticia cómo veis la economía?</h1>
+  <div class="chart">
+    <div class="axis"><span>10</span><span>5</span><span>0</span></div>
+    <div class="col par">
+      <div class="plot"><div class="grid" style="bottom:50%"></div><div class="bar" id="bar-par"></div><div class="val" id="val-par">–</div></div>
+      <div class="lab">Sin la noticia</div>
+      <div class="n" id="n-par">nacidos en año par · 0 respuestas</div>
+    </div>
+    <div class="col impar">
+      <div class="plot"><div class="grid" style="bottom:50%"></div><div class="bar" id="bar-impar"></div><div class="val" id="val-impar">–</div></div>
+      <div class="lab">Con la noticia</div>
+      <div class="n" id="n-impar">nacidos en año impar · 0 respuestas</div>
+    </div>
+  </div>
+  <div class="foot">
+    <span id="dif">Satisfacción con la economía, media de 0 a 10</span>
+    <span class="muted" id="estado">Esperando respuestas…</span>
+  </div>
+</main>
+<script src="config.js"></script>
+<script>
+(function () {
+  var endpoint = window.ENCUESTA_ENDPOINT || "";
+  var sesion = new URLSearchParams(location.search).get("s") || "csic";
+  var $ = function (id) { return document.getElementById(id); };
+  function fmt(x) { return x.toFixed(1).replace(".", ","); }
+  function pinta(g, d) {
+    var m = d && d.media, n = (d && d.n) || 0;
+    $("n-" + g).textContent = (g === "par" ? "nacidos en año par · " : "nacidos en año impar · ") + n + (n === 1 ? " respuesta" : " respuestas");
+    if (m === null || m === undefined) { $("bar-" + g).style.height = "0%"; $("val-" + g).textContent = "–"; $("val-" + g).style.bottom = "2%"; return null; }
+    var h = Math.max(0, Math.min(10, m)) * 10;
+    $("bar-" + g).style.height = h + "%";
+    $("val-" + g).textContent = fmt(m);
+    $("val-" + g).style.bottom = (h + 2) + "%";
+    return m;
+  }
+  function actualiza() {
+    if (!endpoint) { $("estado").textContent = "Votación no configurada"; return; }
+    fetch(endpoint + "?accion=resultados&sesion=" + encodeURIComponent(sesion) + "&t=" + Date.now())
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        var a = pinta("par", d.par), b = pinta("impar", d.impar);
+        $("dif").textContent = (a !== null && b !== null)
+          ? "Diferencia (con − sin la noticia): " + (b - a >= 0 ? "+" : "−") + fmt(Math.abs(b - a)) + " puntos"
+          : "Satisfacción con la economía, media de 0 a 10";
+        $("estado").textContent = "Actualizado " + new Date().toLocaleTimeString("es-ES");
+      })
+      .catch(function () { $("estado").textContent = "Sin conexión; reintentando…"; });
+  }
+  actualiza();
+  setInterval(actualiza, 3000);
+})();
+</script>
+</body>
+</html>
