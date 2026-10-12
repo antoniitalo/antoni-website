@@ -21,10 +21,18 @@
   .big { display:flex; flex-direction:column; gap:12px; }
   button { font:inherit; cursor:pointer; border-radius:12px; border:2px solid var(--dark); background:var(--card); color:var(--dark); padding:16px; font-size:20px; font-weight:600; }
   button:active { transform:scale(.98); }
-  .scale { display:grid; grid-template-columns:repeat(6,1fr); gap:8px; margin:14px 0 6px; }
-  .scale button { padding:14px 0; font-size:20px; }
-  .scale button.sel { background:var(--accent); border-color:var(--accent); color:#fff; }
+  .gauge { text-align:center; margin:18px 0 6px; }
+  .face { font-size:64px; line-height:1; transition:transform .2s ease; }
+  .face.pop { transform:scale(1.15); }
+  .num { font-family:Georgia,serif; font-size:40px; font-weight:700; line-height:1.1; margin-top:6px; min-height:44px; }
+  .num small { font-size:20px; color:var(--muted); font-weight:400; }
+  .hint { font-size:15px; color:var(--muted); min-height:22px; }
+  .scale { display:grid; grid-template-columns:repeat(11,1fr); gap:4px; margin:14px 0 8px; }
+  .scale button { padding:14px 0; font-size:17px; border:none; color:#fff; border-radius:8px; text-shadow:0 1px 1px rgba(0,0,0,.25); transition:transform .15s ease, box-shadow .15s ease, opacity .15s ease; }
+  .scale.chosen button { opacity:.45; }
+  .scale button.sel { opacity:1; transform:scale(1.18); box-shadow:0 0 0 3px var(--card), 0 0 0 5px var(--dark); position:relative; z-index:1; }
   .anchors { display:flex; justify-content:space-between; font-size:14px; color:var(--muted); }
+  .anchors span:last-child { text-align:right; }
   .send { width:100%; margin-top:20px; background:var(--dark); color:var(--light); }
   .send:disabled { opacity:.35; cursor:default; }
   .q { font-family:Georgia,serif; font-size:21px; line-height:1.35; margin:0; }
@@ -56,8 +64,13 @@
     </div>
     <div class="card">
       <p class="q">En general, ¿en qué medida está usted satisfecho con la situación actual de la economía en España?</p>
+      <div class="gauge" aria-live="polite">
+        <div class="face" id="cara">🤔</div>
+        <div class="num" id="numero"></div>
+        <div class="hint" id="pista">Toca un número</div>
+      </div>
       <div class="scale" id="escala"></div>
-      <div class="anchors"><span>0 = nada satisfecho</span><span>10 = totalmente satisfecho</span></div>
+      <div class="anchors"><span>😠 0<br>nada satisfecho</span><span>10 😀<br>totalmente satisfecho</span></div>
     </div>
     <button type="button" class="send" id="enviar" disabled>Enviar</button>
     <p class="msg" id="estado"></p>
@@ -100,13 +113,22 @@
   });
 
   var escala = $("escala");
+  var caras = ["😠", "😠", "😟", "😟", "🙁", "😐", "🙂", "🙂", "😊", "😀", "😀"];
+  function color(v) { return "hsl(" + Math.round(4 + v * 12.6) + ",62%," + (v >= 4 && v <= 6 ? 44 : 46) + "%)"; }
   for (var v = 0; v <= 10; v++) {
     (function (v) {
       var b = document.createElement("button");
-      b.type = "button"; b.textContent = v;
+      b.type = "button"; b.textContent = v; b.style.background = color(v);
+      b.setAttribute("aria-label", v + " de 10");
       b.addEventListener("click", function () {
         valor = v;
+        escala.classList.add("chosen");
         escala.querySelectorAll("button").forEach(function (x) { x.classList.toggle("sel", x === b); });
+        var cara = $("cara");
+        cara.textContent = caras[v]; cara.classList.remove("pop"); void cara.offsetWidth; cara.classList.add("pop");
+        $("numero").innerHTML = v + " <small>/ 10</small>";
+        $("numero").style.color = color(v);
+        $("pista").textContent = "Puedes cambiarlo antes de enviar";
         $("enviar").disabled = false;
       });
       escala.appendChild(b);
