@@ -21,7 +21,8 @@
   .bar { position:absolute; left:20%; width:60%; bottom:0; height:0; border-radius:8px 8px 0 0; transition:height .8s ease; }
   .val { position:absolute; left:0; right:0; text-align:center; font-family:Georgia,serif; font-weight:700; font-size:clamp(32px,7vh,88px); transition:bottom .8s ease; }
   .lab { margin-top:1.5vh; text-align:center; font-size:clamp(18px,3vh,36px); font-weight:700; }
-  .n { text-align:center; font-size:clamp(14px,2vh,24px); color:var(--muted); }
+  .n { text-align:center; font-size:clamp(18px,3vh,34px); color:var(--dark); font-weight:600; margin-top:.6vh; }
+  .sub { text-align:center; font-size:clamp(12px,1.6vh,20px); color:var(--muted); }
   .par .bar { background:var(--blue); } .par .lab { color:var(--blue); }
   .impar .bar { background:var(--accent); } .impar .lab { color:var(--accent); }
   .foot { display:flex; justify-content:space-between; align-items:baseline; font-size:clamp(16px,2.4vh,30px); }
@@ -36,13 +37,15 @@
     <div class="axis"><span>10</span><span>5</span><span>0</span></div>
     <div class="col par">
       <div class="plot"><div class="grid" style="bottom:50%"></div><div class="bar" id="bar-par"></div><div class="val" id="val-par">–</div></div>
-      <div class="lab">Sin la noticia</div>
-      <div class="n" id="n-par">nacidos en año par · 0 respuestas</div>
+      <div class="lab">El paro sube</div>
+      <div class="n" id="n-par">media – · 0 respuestas</div>
+      <div class="sub">nacidos en año par</div>
     </div>
     <div class="col impar">
       <div class="plot"><div class="grid" style="bottom:50%"></div><div class="bar" id="bar-impar"></div><div class="val" id="val-impar">–</div></div>
-      <div class="lab">Con la noticia</div>
-      <div class="n" id="n-impar">nacidos en año impar · 0 respuestas</div>
+      <div class="lab">El paro baja</div>
+      <div class="n" id="n-impar">media – · 0 respuestas</div>
+      <div class="sub">nacidos en año impar</div>
     </div>
   </div>
   <div class="foot">
@@ -59,7 +62,7 @@
   function fmt(x) { return x.toFixed(1).replace(".", ","); }
   function pinta(g, d) {
     var m = d && d.media, n = (d && d.n) || 0;
-    $("n-" + g).textContent = (g === "par" ? "nacidos en año par · " : "nacidos en año impar · ") + n + (n === 1 ? " respuesta" : " respuestas");
+    $("n-" + g).textContent = "media " + (m === null || m === undefined ? "–" : fmt(m)) + " · " + n + (n === 1 ? " respuesta" : " respuestas");
     if (m === null || m === undefined) { $("bar-" + g).style.height = "0%"; $("val-" + g).textContent = "–"; $("val-" + g).style.bottom = "2%"; return null; }
     var h = Math.max(0, Math.min(10, m)) * 10;
     $("bar-" + g).style.height = h + "%";
@@ -74,7 +77,7 @@
       .then(function (d) {
         var a = pinta("par", d.par), b = pinta("impar", d.impar);
         $("dif").textContent = (a !== null && b !== null)
-          ? "Diferencia (con − sin la noticia): " + (b - a >= 0 ? "+" : "−") + fmt(Math.abs(b - a)) + " puntos"
+          ? "Diferencia (baja − sube): " + (b - a >= 0 ? "+" : "−") + fmt(Math.abs(b - a)) + " puntos"
           : "Satisfacción con la economía, media de 0 a 10";
         $("estado").textContent = "Actualizado " + new Date().toLocaleTimeString("es-ES");
       })

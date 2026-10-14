@@ -55,6 +55,12 @@
   </section>
 
   <section id="paso-pregunta" hidden>
+    <div id="noticia-mala" class="card news" hidden>
+      <p class="eyebrow">Una noticia</p>
+      <h2>El paro sube en 23.587 personas</h2>
+      <p>El número de parados registrados aumenta en septiembre, hasta <b>2.379.505</b>.</p>
+      <p class="src">Ministerio de Trabajo y Economía Social, paro registrado de septiembre de 2026 (publicado el 2 de octubre de 2026).</p>
+    </div>
     <div id="noticia" class="card news" hidden>
       <p class="eyebrow">Una noticia</p>
       <h2>El paro baja en 213.300 personas</h2>
@@ -107,7 +113,8 @@
   document.querySelectorAll("[data-grupo]").forEach(function (b) {
     b.addEventListener("click", function () {
       grupo = b.getAttribute("data-grupo");
-      $("noticia").hidden = grupo !== "impar";
+      $("noticia").hidden = grupo !== "impar";          // odd years: good news (LFS, unemployment falls)
+      $("noticia-mala").hidden = grupo !== "par";       // even years: bad news (registered unemployment rises)
       mostrar("paso-pregunta");
     });
   });
