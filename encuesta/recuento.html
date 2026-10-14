@@ -15,6 +15,7 @@
   .n { font-family:Georgia,"Times New Roman",serif; font-weight:700; font-size:clamp(96px,30vh,320px); line-height:1; transition:transform .3s ease; }
   .n.pop { transform:scale(1.08); }
   .lab { font-size:clamp(22px,4vh,48px); font-weight:600; }
+  .reloj { font-variant-numeric:tabular-nums; font-size:clamp(28px,6vh,72px); color:var(--accent); font-weight:700; margin-top:2vh; }
   .muted { color:var(--muted); font-size:clamp(12px,1.8vh,20px); }
 </style>
 </head>
@@ -23,6 +24,7 @@
   <p class="eyebrow">Experimento en la sala</p>
   <div class="n" id="n">–</div>
   <div class="lab" id="lab">respuestas</div>
+  <div class="reloj" id="reloj">0:00</div>
   <div class="muted" id="estado">Esperando respuestas…</div>
 </main>
 <script src="config.js"></script>
@@ -47,6 +49,14 @@
       })
       .catch(function () { $("estado").textContent = "Sin conexión; reintentando…"; });
   }
+  // time since this page was opened
+  var t0 = Date.now();
+  function reloj() {
+    var s = Math.floor((Date.now() - t0) / 1000);
+    $("reloj").textContent = Math.floor(s / 60) + ":" + ("0" + (s % 60)).slice(-2);
+  }
+  reloj();
+  setInterval(reloj, 250);
   actualiza();
   setInterval(actualiza, 2000);
 })();
