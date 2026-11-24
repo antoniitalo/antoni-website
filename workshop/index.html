@@ -77,6 +77,7 @@ input:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:1px;bo
 .keynote p{margin:0}
 .keynote .kname{font-family:var(--serif);font-size:1.45rem;font-weight:600;line-height:1.2}
 .keynote .kaff{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);margin-top:.45rem}
+.choice.room{margin-top:1.2rem}
 fieldset.q{margin:1.2rem 0 .4rem}
 fieldset.q legend{text-transform:none;letter-spacing:0;font-size:.98rem;font-weight:600;line-height:1.4}
 .choice{display:flex;gap:.6rem;align-items:flex-start;margin:.35rem 0;font-size:.98rem}
@@ -248,6 +249,8 @@ footer .wrap{max-width:var(--max);margin:0 auto;padding:1.6rem 1.2rem 2.2rem}
       </div>
     </div>
 
+    <label class="choice room"><input type="checkbox" id="room" name="room" /> <span>I would like one of the free rooms at the student residence (nights of 27 and 28 May), if available</span></label>
+
     <div class="hp" aria-hidden="true">
       <label for="company">Leave this field empty</label>
       <input type="text" id="company" name="company" tabindex="-1" autocomplete="off" />
@@ -265,7 +268,7 @@ footer .wrap{max-width:var(--max);margin:0 auto;padding:1.6rem 1.2rem 2.2rem}
 
   <h2 id="practical">Practical information</h2>
   <div class="serif">
-    <p>There is no registration fee. Lunch, coffee breaks and the workshop dinner are provided for all participants. While we cannot cover travel and accommodation costs for all participants, we offer a limited number of rooms, free of charge, at a student residence opposite the campus for the nights of 27 and 28 May (breakfast included). Presenters and discussants can request one when their participation is confirmed.</p>
+    <p>There is no registration fee. Lunch, coffee breaks and the workshop dinner are provided for all participants. While we cannot cover travel and accommodation costs for all participants, we offer a limited number of rooms, free of charge, at a student residence opposite the campus for the nights of 27 and 28 May (breakfast included). Presenters and discussants can request one in the submission form.</p>
   </div>
 
   <h2>Organisers</h2>
@@ -344,6 +347,7 @@ footer .wrap{max-width:var(--max);margin:0 auto;padding:1.6rem 1.2rem 2.2rem}
       email: val("email"),
       position: val("position"),
       affiliation: val("affiliation"),
+      room: document.getElementById("room").checked,
       hp: val("company")
     };
     if (!data.first) return fail("Please enter your first name.", "first");
